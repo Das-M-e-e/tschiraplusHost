@@ -7,11 +7,11 @@ namespace tschiraplusAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserTaskAssignmentController : ControllerBase
+public class UserTaskAssignmentsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
 
-    public UserTaskAssignmentController(ApplicationDbContext context)
+    public UserTaskAssignmentsController(ApplicationDbContext context)
     {
         _context = context;
     }

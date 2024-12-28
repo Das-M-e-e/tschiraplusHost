@@ -7,11 +7,11 @@ namespace tschiraplusAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class NotificationController : ControllerBase
+public class NotificationsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
 
-    public NotificationController(ApplicationDbContext context)
+    public NotificationsController(ApplicationDbContext context)
     {
         _context = context;
     }

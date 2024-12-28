@@ -7,11 +7,11 @@ namespace tschiraplusAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class SprintController : ControllerBase
+public class SprintsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
 
-    public SprintController(ApplicationDbContext context)
+    public SprintsController(ApplicationDbContext context)
     {
         _context = context;
     }

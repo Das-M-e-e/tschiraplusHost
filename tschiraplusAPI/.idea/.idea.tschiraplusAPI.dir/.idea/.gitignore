@@ -1,6 +1,8 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+/bin/
+/obj/
 # Rider ignored files
 /modules.xml
 /.idea.tschiraplusAPI.iml

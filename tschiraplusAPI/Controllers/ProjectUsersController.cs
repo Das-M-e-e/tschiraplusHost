@@ -7,11 +7,11 @@ namespace tschiraplusAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ProjectUserController : ControllerBase
+public class ProjectUsersController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
 
-    public ProjectUserController(ApplicationDbContext context)
+    public ProjectUsersController(ApplicationDbContext context)
     {
         _context = context;
     }

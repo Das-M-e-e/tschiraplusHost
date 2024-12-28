@@ -5,13 +5,13 @@ using tschiraplusAPI.Models;
 
 namespace tschiraplusAPI.Controllers;
 
-[Route("api/[controller]")]
 [ApiController]
-public class TaskController : ControllerBase
+[Route("api/[controller]")]
+public class TasksController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
 
-    public TaskController(ApplicationDbContext context)
+    public TasksController(ApplicationDbContext context)
     {
         _context = context;
     }

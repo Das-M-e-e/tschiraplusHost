@@ -7,11 +7,11 @@ namespace tschiraplusAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CommentController : ControllerBase
+public class CommentsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
 
-    public CommentController(ApplicationDbContext context)
+    public CommentsController(ApplicationDbContext context)
     {
         _context = context;
     }

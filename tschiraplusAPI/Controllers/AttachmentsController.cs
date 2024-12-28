@@ -7,11 +7,11 @@ namespace tschiraplusAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AttachmentController : ControllerBase
+public class AttachmentsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
 
-    public AttachmentController(ApplicationDbContext context)
+    public AttachmentsController(ApplicationDbContext context)
     {
         _context = context;
     }

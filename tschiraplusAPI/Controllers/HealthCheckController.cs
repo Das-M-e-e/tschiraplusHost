@@ -1,6 +1,14 @@
-﻿namespace tschiraplusAPI.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
 
-public class HealthCheckController
+namespace tschiraplusAPI.Controllers;
+
+[ApiController]
+[Route("")]
+public class HealthCheckController : ControllerBase
 {
-    
+    [HttpGet]
+    public IActionResult GetHealthStatus()
+    {
+        return Ok();
+    }
 }

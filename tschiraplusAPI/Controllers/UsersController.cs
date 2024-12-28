@@ -1,99 +1,82 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using tschiraplusAPI.Data;
 using tschiraplusAPI.Models;
+using tschiraplusAPI.Repositories;
 
 namespace tschiraplusAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserController : ControllerBase
+public class UsersController : ControllerBase
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IUserRepository _userRepository;
 
-    public UserController(ApplicationDbContext context)
+    public UsersController(IUserRepository userRepository)
     {
-        _context = context;
+        _userRepository = userRepository;
     }
     
     // GET: api/Users
     [HttpGet]
     public async Task<ActionResult<IEnumerable<UserModel>>> GetUsers()
     {
-        return await _context.Users.ToListAsync();
+        var users = await _userRepository.GetAllUsersAsync();
+        return Ok(users);
     }
     
     // GET: api/Users/{id}
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     public async Task<ActionResult<UserModel>> GetUser(Guid id)
     {
-        var user = await _context.Users.FindAsync(id);
+        var user = await _userRepository.GetUserByIdAsync(id);
 
         if (user == null)
         {
             return NotFound();
         }
 
-        return user;
+        return Ok(user);
     }
     
     // POST: api/Users
     [HttpPost]
     public async Task<ActionResult<UserModel>> PostUser(UserModel userModel)
     {
-        // Todo: Validierung
+        var userExists = await _userRepository.UserExistsAsync(userModel.UserId, userModel.Email);
+        if (userExists)
+        {
+            return BadRequest("Email already exists!");
+        }
 
-        _context.Users.Add(userModel);
-        await _context.SaveChangesAsync();
-
+        await _userRepository.CreateUserAsync(userModel);
         return CreatedAtAction(nameof(GetUser), new { id = userModel.UserId }, userModel);
     }
     
     // PUT: api/Users/{id}
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     public async Task<IActionResult> PutUser(Guid id, UserModel userModel)
     {
         if (id != userModel.UserId)
         {
-            return BadRequest();
+            return BadRequest("User ID mismatch.");
         }
-
-        _context.Entry(userModel).State = EntityState.Modified;
-
+        
         try
         {
-            await _context.SaveChangesAsync();
+            await _userRepository.UpdateUserAsync(userModel);
         }
-        catch (DbUpdateConcurrencyException)
+        catch (KeyNotFoundException)
         {
-            if (!UserModelExists(id))
-            {
-                return NotFound();
-            }
-            throw;
+            return NotFound("User not found.");
         }
+
         return NoContent();
     }
     
     // DELETE: api/Users/{id}
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteUser(Guid id)
     {
-        var user = await _context.Users.FindAsync(id);
-
-        if (user == null)
-        {
-            return NotFound();
-        }
-
-        _context.Users.Remove(user);
-        await _context.SaveChangesAsync();
-
+        await _userRepository.DeleteUserAsync(id);
         return NoContent();
-    }
-    
-    private bool UserModelExists(Guid id)
-    {
-        return _context.Users.Any(e => e.UserId == id);
     }
 }
