@@ -46,7 +46,7 @@ public class TokenService
     
     public async Task<UserModel?> ValidateToken(string token)
     {
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:SecretKey"]));
         var tokenHandler = new JwtSecurityTokenHandler();
 
         try
