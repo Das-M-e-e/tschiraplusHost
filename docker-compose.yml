@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  api:
+    # Baut das API-Image aus dem Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Verbindet den lokalen Port 8080 mit dem Container-Port
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      # Verbindung zur Datenbank
+      - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=tschiraplus_db;Username=postgres;Password=tschiraplus;
+    depends_on:
+      - database # Startet den API-Container erst, wenn der Datenbank-Container läuft
+
+  database:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: tschiraplus
+      POSTGRES_DB: tschiraplus_db
+    ports:
+      - "5432:5432" # Verbindet den lokalen Port 5432 mit dem Container-Port
+    volumes:
+      - db_data:/var/lib/postgresql/data # Persistiert Daten in einem Volume
+
+# Definiert das Datenbank-Volume
+volumes:
+  db_data:
