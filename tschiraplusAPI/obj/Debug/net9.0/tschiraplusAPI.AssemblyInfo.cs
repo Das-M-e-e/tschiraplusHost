@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tschiraplusAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca03283aa265ba2c1a62cbee2a2cf49b7eb2af07")]
 [assembly: System.Reflection.AssemblyProductAttribute("tschiraplusAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tschiraplusAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -9,10 +9,12 @@ namespace tschiraplusAPI.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IUserService _userService;
+    private readonly TokenService _tokenService;
 
-    public AuthController(IUserService userService)
+    public AuthController(IUserService userService, TokenService tokenService)
     {
         _userService = userService;
+        _tokenService = tokenService;
     }
 
     [HttpPost("Register")]
@@ -55,5 +57,39 @@ public class AuthController : ControllerBase
                 Roles = new[] { "User" }
             }
         });
+    }
+
+    [HttpPost("VerifyToken")]
+    public async Task<IActionResult> VerifyToken([FromBody] TokenVerificationRequest request)
+    {
+        if (string.IsNullOrEmpty(request.Token))
+        {
+            return BadRequest(new { Message = "Token is required" });
+        }
+
+        try
+        {
+            var user = await _tokenService.ValidateToken(request.Token);
+
+            if (user == null)
+            {
+                return Unauthorized(new { Message = "Invalid or expired token" });
+            }
+
+            return Ok(new
+            {
+                Message = "Token is valid",
+                User = new
+                {
+                    user.UserId,
+                    user.Username,
+                    user.Email
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, new { Message = "An error occured during token validation.", Error = e.Message });
+        }
     }
 }
