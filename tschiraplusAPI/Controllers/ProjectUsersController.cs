@@ -120,6 +120,22 @@ public class ProjectUsersController : ControllerBase
         return NoContent();
     }
     
+    // DELETE: api/ProjectUsers/DeleteByProjectId/{projectId}
+    [HttpPut("DeleteByProjectId/{projectId:guid}")]
+    public async Task<IActionResult> DeleteProjectUsersByProjectId(Guid projectId)
+    {
+        var projectUsers = await _context.ProjectUsers.Where(p => p.ProjectId == projectId).ToListAsync();
+        if (projectUsers.Count == 0)
+        {
+            return NotFound(new { Message = "No projectUsers found for given ProjectId." });
+        }
+        
+        _context.ProjectUsers.RemoveRange(projectUsers);
+        await _context.SaveChangesAsync();
+        
+        return NoContent();
+    }
+    
     private bool ProjectUserModelExists(Guid id)
     {
         return _context.ProjectUsers.Any(e => e.ProjectUserId == id);
