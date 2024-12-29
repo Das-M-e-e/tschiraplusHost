@@ -23,8 +23,36 @@ public class ProjectUsersController : ControllerBase
         return await _context.ProjectUsers.ToListAsync();
     }
     
+    // GET: api/ProjectUsers/ByUserId/{userId}
+    [HttpGet("ByUserId/{userId:guid}")]
+    public async Task<ActionResult<IEnumerable<ProjectUserModel>>> GetProjectUsersByUserId(Guid userId)
+    {
+        var projectUsers = await _context.ProjectUsers.Where(p => p.UserId == userId).ToListAsync();
+
+        if (projectUsers.Count == 0)
+        {
+            return NotFound(new { Message = "No projectUsers found for given UserId." });
+        }
+        
+        return Ok(projectUsers);
+    }
+    
+    // GET: api/ProjectUsers/ByProjectId/{projectId}
+    [HttpGet("ByProjectId/{projectId:guid}")]
+    public async Task<ActionResult<IEnumerable<ProjectUserModel>>> GetProjectUsersByProjectId(Guid projectId)
+    {
+        var projectUsers = await _context.ProjectUsers.Where(p => p.ProjectId == projectId).ToListAsync();
+
+        if (projectUsers.Count == 0)
+        {
+            return NotFound(new { Message = "No projectUsers found for given ProjectId." });
+        }
+        
+        return Ok(projectUsers);
+    }
+    
     // GET: api/ProjectUsers/{id}
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     public async Task<ActionResult<ProjectUserModel>> GetProjectUser(Guid id)
     {
         var projectUser = await _context.ProjectUsers.FindAsync(id);
@@ -50,7 +78,7 @@ public class ProjectUsersController : ControllerBase
     }
     
     // PUT: api/ProjectUsers/{id}
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     public async Task<IActionResult> PutProjectUser(Guid id, ProjectUserModel projectUserModel)
     {
         if (id != projectUserModel.ProjectUserId)
@@ -76,7 +104,7 @@ public class ProjectUsersController : ControllerBase
     }
     
     // DELETE: api/ProjectUsers/{id}
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteProjectUser(Guid id)
     {
         var projectUser = await _context.ProjectUsers.FindAsync(id);

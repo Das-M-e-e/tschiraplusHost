@@ -1,25 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Gabriel\\Studium_MI\\3\\se3\\tschiraplusHost\\tschiraplusAPI\\tschiraplusAPI.csproj": {}
+    "D:\\Studium_MI\\3\\se3\\tschiraplusHost\\tschiraplusAPI\\tschiraplusAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Gabriel\\Studium_MI\\3\\se3\\tschiraplusHost\\tschiraplusAPI\\tschiraplusAPI.csproj": {
+    "D:\\Studium_MI\\3\\se3\\tschiraplusHost\\tschiraplusAPI\\tschiraplusAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Gabriel\\Studium_MI\\3\\se3\\tschiraplusHost\\tschiraplusAPI\\tschiraplusAPI.csproj",
+        "projectUniqueName": "D:\\Studium_MI\\3\\se3\\tschiraplusHost\\tschiraplusAPI\\tschiraplusAPI.csproj",
         "projectName": "tschiraplusAPI",
-        "projectPath": "C:\\Users\\Gabriel\\Studium_MI\\3\\se3\\tschiraplusHost\\tschiraplusAPI\\tschiraplusAPI.csproj",
-        "packagesPath": "C:\\Users\\Gabriel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Gabriel\\Studium_MI\\3\\se3\\tschiraplusHost\\tschiraplusAPI\\obj\\",
+        "projectPath": "D:\\Studium_MI\\3\\se3\\tschiraplusHost\\tschiraplusAPI\\tschiraplusAPI.csproj",
+        "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
+        "outputPath": "D:\\Studium_MI\\3\\se3\\tschiraplusHost\\tschiraplusAPI\\obj\\",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
-          "C:\\Users\\Gabriel\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\gabri\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,8 +40,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "all"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net9.0": {
