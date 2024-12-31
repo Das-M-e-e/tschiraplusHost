@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "42069:42069" # Verbindet den lokalen Port 42069 mit dem Container-Port
+      - "42069:8080" # Verbindet den lokalen Port 42069 mit dem Container-Port
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       # Verbindung zur Datenbank
