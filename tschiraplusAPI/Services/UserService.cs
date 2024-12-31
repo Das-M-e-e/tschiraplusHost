@@ -68,7 +68,7 @@ public class UserService : IUserService
         Console.WriteLine(result);
         if (result != PasswordVerificationResult.Success)
         {
-            Console.WriteLine("Password verification was not succesful");
+            Console.WriteLine("Password verification was not successful");
             return new ServiceResponse
             {
                 Success = false,
