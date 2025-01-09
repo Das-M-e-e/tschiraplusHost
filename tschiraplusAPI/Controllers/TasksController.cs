@@ -37,6 +37,20 @@ public class TasksController : ControllerBase
         return task;
     }
     
+    // GET: api/Tasks/ByProjectId/{projectId}
+    [HttpGet("ByProjectId/{projectId}")]
+    public async Task<ActionResult<IEnumerable<TaskModel>>> GetTasksByProjectId(Guid projectId)
+    {
+        var projectTasks = await _context.Tasks.Where(t => t.ProjectId == projectId).ToListAsync();
+
+        if (projectTasks.Count == 0)
+        {
+            return NotFound();
+        }
+        
+        return Ok(projectTasks);
+    }
+    
     // POST: api/Tasks
     [HttpPost]
     public async Task<ActionResult<TaskModel>> PostTask(TaskModel taskModel)
