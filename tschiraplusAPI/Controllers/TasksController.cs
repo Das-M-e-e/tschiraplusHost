@@ -43,7 +43,7 @@ public class TasksController : ControllerBase
     {
         // Todo: Validierung
 
-        _context.Tasks.Add(taskModel);
+        await _context.Tasks.AddAsync(taskModel);
         await _context.SaveChangesAsync();
 
         return CreatedAtAction(nameof(GetTask), new { id = taskModel.TaskId }, taskModel);
