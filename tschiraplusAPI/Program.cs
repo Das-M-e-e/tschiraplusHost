@@ -41,6 +41,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseMiddleware<SwaggerBasicAuthMiddleware>();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
