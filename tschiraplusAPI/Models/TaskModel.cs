@@ -14,6 +14,7 @@ public class TaskModel
     public int? Status { get; set; }
     public int? Priority { get; set; }
     public DateTime CreationDate { get; init; }
+    public DateTime StartDate { get; set; }
     public DateTime? DueDate { get; set; }
     public DateTime? CompletionDate { get; set; }
     public DateTime LastUpdated { get; set; }
