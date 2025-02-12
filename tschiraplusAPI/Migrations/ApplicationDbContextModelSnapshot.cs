@@ -309,6 +309,9 @@ namespace tschiraplusAPI.Migrations
                     b.Property<Guid?>("SprintId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int?>("Status")
                         .HasColumnType("integer");
 
