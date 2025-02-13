@@ -19,29 +19,53 @@ public class SyncController : ControllerBase
     [HttpGet("projects/{userId:guid}")]
     public async Task<ActionResult<object>> SyncProjects(Guid userId)
     {
-        // load user information
-        var user = await _context.Users.FindAsync(userId);
-        if (user == null)
+        try
         {
-            return NotFound(new { message = "User not found." });
+            // load user information
+            var user = await _context.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found." });
+            }
+
+            // load all ProjectUserModels for given userId
+            var projectUsers = await _context.ProjectUsers.Where(pu => pu.UserId == userId).ToListAsync();
+            if (projectUsers.Count == 0)
+            {
+                return NotFound(new { message = "No projects found for this user." });
+            }
+
+            // load all projects from the found ProjectUserModels
+            var projectIds = projectUsers.Select(p => p.ProjectId).Distinct();
+            var projects = await _context.Projects.Where(p => projectIds.Contains(p.ProjectId)).ToListAsync();
+
+            return Ok(new
+            {
+                User = user,
+                ProjectUsers = projectUsers,
+                Projects = projects
+            });
         }
-        
-        // load all ProjectUserModels for given userId
-        var projectUsers = await _context.ProjectUsers.Where(pu => pu.UserId == userId).ToListAsync();
-        if (projectUsers.Count == 0)
+        catch (Exception e)
         {
-            return NotFound(new { message = "No projects found for this user." });
+            Console.WriteLine(e);
+            return StatusCode(500, new { message = "An error occured while syncing projects.", details = e.Message });
         }
-        
-        // load all projects from the found ProjectUserModels
-        var projectIds = projectUsers.Select(p => p.ProjectId).Distinct();
-        var projects = await _context.Projects.Where(p => projectIds.Contains(p.ProjectId)).ToListAsync();
-        
-        return Ok(new
+    }
+    
+    // GET: api/sync/tasks/{projectId}
+    [HttpGet("tasks/{projectId:guid}")]
+    public async Task<ActionResult<object>> SyncTasks(Guid projectId)
+    {
+        try
         {
-            User = user,
-            ProjectUsers = projectUsers,
-            Projects = projects
-        });
+            var tasks = await _context.Tasks.Where(t => t.ProjectId == projectId).ToListAsync();
+            return Ok(tasks);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, new { error = "An error occurred while syncing tasks.", details = e.Message });
+        }
     }
 }
